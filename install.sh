@@ -1,12 +1,14 @@
 #!/bin/bash
 
+timedatectl set-ntp true > /dev/null 2>&1
+
 # >>Partitioning drive
 read -p "Input your hard drive to start formatting (for example: /dev/sda) :" HDD
 #echo 'label: gpt' | sfdisk $HDD
 echo -e '
 ,512M,C12A7328-F81F-11D2-BA4B-00A0C93EC93B\n
 ,8G,0657FD6D-A4AB-43C4-84E5-0933C84B4F4F\n
-,+,0FC63DAF-8483-4772-8E79-3D69D8477DE4 \n
+,+,0FC63DAF-8483-4772-8E79-3D69D8477DE4\n
 ' | sfdisk $HDD
 
 # >>Format and mount drives
@@ -19,7 +21,7 @@ cryptsetup luksFormat -v -y $ROOTPART
 cryptsetup open $ROOTPART cryptroot
 mkfs.ext4 /dev/mapper/cryptroot
 mount /dev/mapper/cryptroot /mnt
-mount --makedir $EFIPART /mnt/boot
+mount --mkdir $EFIPART /mnt/boot
 
 # >>Install packages
 pacstrap -K /mnt base linux linux-firmware efibootmgr grub os-prober networkmanager sudo terminus-font
