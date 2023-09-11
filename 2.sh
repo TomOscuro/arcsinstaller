@@ -6,7 +6,6 @@ read -p "Input the name of drive you installed the base on (for example: /dev/sd
 
 # >>Refreshing the base system
 pacman -Syu --noconfirm
-reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
 
 # >>Locale
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
@@ -34,15 +33,17 @@ mkinitcpio -p linux
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Arcs
 # adding UUID for cryptdevice to /etc/default/grub
 UUID=$(blkid | grep ${HDD}3 | awk -F\" '{print $2}')
+echo $UUID
 LINE="GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=${UUID}:cryptroot root=/dev/mapper/cryptroot\""
+echo $LINE
 sed -i "/GRUB_CMDLINE_LINUX=/c ${LINE}" /etc/default/grub
 # make grub cfg
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # >>Users & passwords
-clear && echo "Password for ROOT..."
+echo -e "\nPassword for ROOT..."
 passwd
-clear && echo "Creating a USER..."
+echo -e "\nCreating a USER..."
 read -p "username: " NEWUSERNAME
 useradd -mG wheel $NEWUSERNAME
 passwd $NEWUSERNAME
