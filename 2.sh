@@ -4,10 +4,9 @@
 
 read -p "Input the name of drive you installed the base on (for example: /dev/sda) :" HDD
 
-reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
-
 # >>Refreshing the base system
 pacman -Syu --noconfirm
+reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
 
 # >>Locale
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
@@ -41,9 +40,9 @@ sed -i "/GRUB_CMDLINE_LINUX=/c ${LINE}" /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # >>Users & passwords
-clear && echo "Password for ROOT:"
+clear && echo "Password for ROOT..."
 passwd
-clear && echo "Creating a USER:"
+clear && echo "Creating a USER..."
 read -p "username: " NEWUSERNAME
 useradd -mG wheel $NEWUSERNAME
 passwd $NEWUSERNAME
