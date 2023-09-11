@@ -10,9 +10,9 @@ pacman -Syu --noconfirm
 # >>Locale
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock -w
-echo "LANG=en_US.UTF-8" > vconsole.conf
+echo "KEYMAP=hu" > /etc/vconsole.conf
 echo "FONT=ter-116n" >> /etc/vconsole.conf
-echo "KEYMAP=hu" > /etc/locale.conf
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 locale-gen
 

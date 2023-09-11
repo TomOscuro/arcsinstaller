@@ -20,6 +20,7 @@ SWAPPART=${HDD}2
 ROOTPART=${HDD}3
 mkfs.fat -F32 $EFIPART
 mkswap $SWAPPART
+swapon $SWAPPART
 cryptsetup luksFormat -v -y $ROOTPART
 cryptsetup open $ROOTPART cryptroot
 mkfs.ext4 /dev/mapper/cryptroot
