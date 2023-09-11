@@ -32,7 +32,7 @@ mkinitcpio -p linux
 # >>GRUB2 bootloader
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Arcs
 # adding UUID for cryptdevice to /etc/default/grub
-UUID=$(sudo blkid | grep $HDD | awk -F\" '{print $2}')
+UUID=$(blkid | grep $HDD | awk -F\" '{print $2}')
 LINE="GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=${UUID}:cryptroot root=/dev/mapper/cryptroot\""
 sed -i "/GRUB_CMDLINE_LINUX=/c ${LINE}" /etc/default/grub
 # make grub cfg
