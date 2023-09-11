@@ -27,6 +27,7 @@ mount /dev/mapper/cryptroot /mnt
 mount --mkdir $EFIPART /mnt/boot
 
 # >>Install packages
-pacstrap -K /mnt base linux linux-firmware efibootmgr grub os-prober networkmanager sudo terminus-font
+pacstrap -K /mnt base linux linux-firmware efibootmgr grub os-prober networkmanager sudo terminus-font git reflector
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt
+
+echo -e "Use \"arch-chroot /mnt\" to change your root to your new system's root"
