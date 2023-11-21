@@ -4,6 +4,7 @@
 
 read -p "Input the name of drive you installed the base on (for example: /dev/sda) :" HDD
 
+#TODO
 # >>Refreshing the base system
 pacman -Syu --noconfirm
 
